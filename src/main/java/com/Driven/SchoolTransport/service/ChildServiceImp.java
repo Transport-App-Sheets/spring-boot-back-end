@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.Driven.SchoolTransport.model.Child;
+import com.Driven.SchoolTransport.model.Parent;
 import com.Driven.SchoolTransport.repository.ChildRepository;
 import com.Driven.SchoolTransport.repository.ParentRepository;
 
@@ -13,7 +14,7 @@ public class ChildServiceImp implements ChildService{
 	
 @Autowired
 ChildRepository  childRepo;
-ParentRepository parentReo;
+ParentRepository parentRepo;
 	
 
 @Override
@@ -29,14 +30,21 @@ public List<Child> getAllChild() {
 }
 
 @Override
-public void DeleteChild(Long id) {
+public void DeleteChild(long id) {
 	childRepo.deleteById(id);
 }
 
 @Override
-public Child ajouterChild(Long parentId, Child c) {
-	Parent parent = parentRepo.findById(parentId).orElseThrow(() -> new IllegalArgumentException("Invalid parent ID"));
+public Child ajouterChild(long parentId, Child c) {
 	return childRepo.save(c);}
 
+@Override
+public List<Child> findChildByParentId(long id) {
+	return childRepo.findChildByParentId(id);
 }
+
+
+}
+
+
 

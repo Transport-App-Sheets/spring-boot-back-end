@@ -28,7 +28,7 @@ public void DeleteParent(Parent p) {
 	
 }
 @Override
-public void DeleteParent(Long id) {
+public void DeleteParent(long id) {
 	parentRepo.deleteById(id);
 	
 }
@@ -39,14 +39,13 @@ public List<Parent> getAllParent() {
 }
 @Override
 
-public Child ajouterChild(Long parentId, Child c) {
-	Parent parent = parentRepo.findById(parentId).orElseThrow(() -> new IllegalArgumentException("Invalid parent ID"));
+public Child ajouterChild(long parentId, Child c) {
 	return childRepo.save(c);
 
 
 }
 @Override
-public Parent FindParentByid(Long parentId) {
+public Parent FindParentByid(long parentId) {
 	 parentRepo.findById(parentId);
 	return null;
 }}
