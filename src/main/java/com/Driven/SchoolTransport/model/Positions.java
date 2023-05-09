@@ -1,92 +1,84 @@
 package com.Driven.SchoolTransport.model;
 
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
-import jakarta.persistence.OneToOne;
+
+
+
 
 @Entity
 public class Positions {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int id;
-	public double  longitude;
-	public double  latitude;
-    public String type;
-   
+	public String longitude;
+	public String latitude;
+	@JsonBackReference
+	@OneToMany(mappedBy = "id")
+	public List<School> schools;
+	@JsonBackReference
+	@OneToMany(mappedBy = "id")
+    public List<Driver> drivers;    
     
-    
-    
-    @OneToOne(mappedBy="positions")
-    private Child child;
-    
-    @OneToOne(mappedBy="positions")
-    private Driver driver;
-    
-    @OneToOne(mappedBy="positions")
-    private School school;
+	 
 
-	public int getId() {
-		return id;
-	}
+		public int getId() {
+			return id;
+		}
 
-	public void setId(int id) {
-		this.id = id;
-	}
+		public void setId(int id) {
+			this.id = id;
+		}
 
-	public double getLongitude() {
-		return longitude;
-	}
+		public String getLongitude() {
+			return longitude;
+		}
 
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
+		public void setLongitude(String longitude) {
+			this.longitude = longitude;
+		}
 
-	public double getLatitude() {
-		return latitude;
-	}
+		public String getLatitude() {
+			return latitude;
+		}
 
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
+		public void setLatitude(String latitude) {
+			this.latitude = latitude;
+		}
 
-	public String getType() {
-		return type;
-	}
+		public List<School> getSchools() {
+			return schools;
+		}
 
-	public void setType(String type) {
-		this.type = type;
-	}
+		public void setSchools(List<School> schools) {
+			this.schools = schools;
+		}
 
-	public Child getChild() {
-		return child;
-	}
+		public List<Driver> getDrivers() {
+			return drivers;
+		}
 
-	public void setChild(Child child) {
-		this.child = child;
-	}
+		public void setDrivers(List<Driver> drivers) {
+			this.drivers = drivers;
+		}
 
-	public Driver getDriver() {
-		return driver;
-	}
+		
 
-	public void setDriver(Driver driver) {
-		this.driver = driver;
-	}
 
-	public School getSchool() {
-		return school;
-	}
 
-	public void setSchool(School school) {
-		this.school = school;
-	}
-    
-	}
-	
 	
 
+}
+
+	
+
+	

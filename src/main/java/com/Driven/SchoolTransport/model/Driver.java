@@ -3,14 +3,23 @@ package com.Driven.SchoolTransport.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+
 
 
 @Entity
@@ -23,17 +32,27 @@ public class Driver {
 	public String email;
 	public String Adress;
 	public String busnumber;
-	
-    
-    @OneToMany(mappedBy="driver")
-    private List<Child> children;
-    
-    @ManyToMany(mappedBy="drivers")
-    private List<School> schools;
-    
-    @OneToOne
+	@JsonManagedReference
+	@OneToOne
     @JoinColumn(name="position_id")
-    public Positions positions;
+    private Positions position;
+	@JsonManagedReference
+    @OneToMany(mappedBy = "idchild")
+	public List<Child> child;
+	@JsonBackReference
+    @OneToMany(mappedBy = "id")
+	public List<School> school;
+	@JsonBackReference
+    @ManyToMany(mappedBy = "drivers",fetch = FetchType.EAGER)
+    private List<School> schools;
+   
+	public List<Child> getChild() {
+		return child;
+	}
+
+	public void setChild(List<Child> child) {
+		this.child = child;
+	}
 
 	public int getId() {
 		return id;
@@ -83,12 +102,20 @@ public class Driver {
 		this.busnumber = busnumber;
 	}
 
-	public List<Child> getChildren() {
-		return children;
+	public Positions getPosition() {
+		return position;
 	}
 
-	public void setChildren(List<Child> children) {
-		this.children = children;
+	public void setPosition(Positions position) {
+		this.position = position;
+	}
+
+	public List<School> getSchool() {
+		return school;
+	}
+
+	public void setSchool(List<School> school) {
+		this.school = school;
 	}
 
 	public List<School> getSchools() {
@@ -99,13 +126,8 @@ public class Driver {
 		this.schools = schools;
 	}
 
-	public Positions getPositions() {
-		return positions;
-	}
+	
 
-	public void setPositions(Positions positions) {
-		this.positions = positions;
-	}
     
 	
 	

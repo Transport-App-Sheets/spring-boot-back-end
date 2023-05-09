@@ -1,12 +1,18 @@
 package com.Driven.SchoolTransport.model;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-
+import jakarta.validation.Valid;
 
 
 
@@ -15,82 +21,86 @@ import jakarta.persistence.OneToOne;
 public class Child {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public int idchild;
-	public String lastname;
-	public String firstname;
-	public String age;
-	public String homeaddress;
-
-	@ManyToOne
+	private long idchild;
+	private String lastName;
+	private String firstName;
+	private String age;
+	private String schoolName;
+	private String homeAddress;
+    @ManyToOne
+    @JsonIgnore
     @JoinColumn(name="parent_id")
     private Parent parent;
-    
-    @ManyToOne
-    @JoinColumn(name="school_id")
-    private School school;
-    
-    @ManyToOne
+	
+    @JsonManagedReference
+	@ManyToOne
+    @JsonIgnore
     @JoinColumn(name="driver_id")
     private Driver driver;
-    
-    @OneToOne
-    @JoinColumn(name="position_id")
-    public Positions positions;
+	
+	@ManyToOne
+    @JsonIgnore
+    @JoinColumn(name="school_id")
+    private School school;
 
-	public int getIdchild() {
+	public long getIdchild() {
 		return idchild;
 	}
 
-	public void setIdchild(int idchild) {
+	public void setIdchild(long idchild) {
 		this.idchild = idchild;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getAge() {
 		return age;
 	}
 
-	public void setAge(String age) {
-		this.age = age;
+	public void setAge(String i) {
+		this.age = i;
 	}
 
-	public String getHomeaddress() {
-		return homeaddress;
+	public String getSchoolName() {
+		return schoolName;
 	}
 
-	public void setHomeaddress(String homeaddress) {
-		this.homeaddress = homeaddress;
-	}
-
-	public Parent getParent() {
-		return parent;
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
 	}
 
 	public void setParent(Parent parent) {
 		this.parent = parent;
 	}
 
-	public School getSchool() {
-		return school;
+	public String getHomeAddress() {
+		return homeAddress;
 	}
 
-	public void setSchool(School school) {
-		this.school = school;
+	public void setHomeAddress(String homeAddress) {
+		this.homeAddress = homeAddress;
+	}
+
+	public Parent getParent() {
+		return parent;
+	}
+
+	public long setParentid(@Valid long id) {
+		return this.parent.setId(id);
 	}
 
 	public Driver getDriver() {
@@ -101,16 +111,14 @@ public class Child {
 		this.driver = driver;
 	}
 
-	public Positions getPositions() {
-		return positions;
+	public School getSchool() {
+		return school;
 	}
 
-	public void setPositions(Positions positions) {
-		this.positions = positions;
+	public void setSchool(School school) {
+		this.school = school;
 	}
-
 }
-
 	
 
 	
